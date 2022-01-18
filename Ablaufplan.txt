@@ -1,0 +1,26 @@
+Ver-/Entschluesseln von Texten
+
+- Menü zur Auswahl des Algorithmus (Terminal)
+	- Caesar
+	- Trithemius
+	- Vigenere
+	- One-Time-Pad
+	- RSA
+	- (Morse?)
+	
+- Wahl zwischen Ver- und Entschlüsseln
+	- (Kann bei Morse Übersprungen werden)
+	
+- Menü zur Auswahl der Eingabeart
+	- Direkteingabe über Terminal
+	- Dateiname im aktuellen Verzeichnis (txt)
+	- absoluter Dateipfad für externe Dateien (txt)
+
+- Sequentielle Abfrage von nötigen Inputs
+	- Caesar: Verschiebung: Integer
+	- Vigenere: Schluesseltext/-wort 
+	- Trithemius: kein Input
+	- RSA: 2 Primzahlen (p, q, p ungleich q, p * q > 256^2),   
+	- One-Time-Pad: Schluesseltext/-wort
+	- (Morse: kein Input)
+	
