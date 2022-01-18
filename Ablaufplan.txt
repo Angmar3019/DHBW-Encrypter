@@ -20,7 +20,7 @@ Ver-/Entschluesseln von Texten
 	- Caesar: Verschiebung: Integer
 	- Vigenere: Schluesseltext/-wort 
 	- Trithemius: kein Input
-	- RSA: 2 Primzahlen (p, q, p ungleich q, p * q > 256^2),   
+	- RSA: 2 Primzahlen (p, q, p ungleich q, p * q > 256^2), Schlüssel e/d (Programm liefert valide Beispiele oder User gibt eigenen Wert an)   
 	- One-Time-Pad: Schluesseltext/-wort
 	- (Morse: kein Input)
 	
