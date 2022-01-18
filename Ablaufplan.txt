@@ -1,4 +1,5 @@
 Ver-/Entschluesseln von Texten
+- Beschränkung auf ASCII-Zeichen 32-126
 
 - Menü zur Auswahl des Algorithmus (Terminal)
 	- Caesar
@@ -6,7 +7,7 @@ Ver-/Entschluesseln von Texten
 	- Vigenere
 	- One-Time-Pad
 	- RSA
-	- (Morse?)
+	- (Morse?) -> weiter beschränkt auf Buchstaben
 	
 - Wahl zwischen Ver- und Entschlüsseln
 	- (Kann bei Morse Übersprungen werden)
@@ -24,3 +25,8 @@ Ver-/Entschluesseln von Texten
 	- One-Time-Pad: Schluesseltext/-wort
 	- (Morse: kein Input)
 	
+Potenzielle Erweiterungen:
+- "Prüfmodus": Prüfsumme/-hash des Klartextes wird erstellt und ausgegeben -> Vergleich von Ursprungstext und entschlüsseltem Text
+- Erweiterung auf Bilddateien
+	- Umwandlung von Bild zu Text (oder vice versa), Anwendung der bereits implementierten Textverschlüsselungen
+	- Implementieren von Bildverschlüsselungen (z.B Kodieren/Auslesen von Nachrichten in Bildern)
