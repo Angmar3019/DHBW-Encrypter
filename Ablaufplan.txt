@@ -22,7 +22,7 @@ Ver-/Entschluesseln von Texten
 	- Vigenere: Schluesseltext/-wort 
 	- Trithemius: kein Input
 	- RSA: 2 Primzahlen (p, q, p ungleich q, p * q > 256^2), Schlüssel e/d (Programm liefert valide Beispiele oder User gibt eigenen Wert an)   
-	- One-Time-Pad: Schluesseltext/-wort
+	- One-Time-Pad: Schluesseltext/-wort ODER: zufällig generiert, damit User selbst nichts überlegen/tippen muss (wird im Modul übernommen, im Menü nur Abfrage)
 	- (Morse: kein Input)
 	
 Potenzielle Erweiterungen:
