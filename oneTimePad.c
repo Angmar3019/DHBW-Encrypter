@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <time.h>
 
-void shiftCharacters(char *text, char *keyText, int mode){
+void shiftOTPCharacters(char *text, char *keyText, int mode){
 	//iterate over every character in the given string
 	for(int i = 0; i < strlen(text); i++){
 		//get ASCII code of current character
@@ -40,14 +40,14 @@ char* createKey(int length){
 char* otpEncryptTextOnly(char *text){ //called from menu if key was not provided by user
 	srand(time(NULL)); //set seed of rand() to a random seed
 	char *key = createKey(strlen(text)); //create a key with the same length as the text
-	shiftCharacters(text,key, 0); //pass input, key and mode = 0 (for encryption) to main function
+	shiftOTPCharacters(text,key, 0); //pass input, key and mode = 0 (for encryption) to main function
 	return key; //return key to user
 }
 
 void otpEncrypt(char *text, char *keyText){ //called from menu if key was provided by user
-	shiftCharacters(text, keyText, 0); //pass input, key and mode = 0 (for encryption) to main function
+	shiftOTPCharacters(text, keyText, 0); //pass input, key and mode = 0 (for encryption) to main function
 }
 
 void otpDecrypt(char *text, char *keyText){ //called from menu
-	shiftCharacters(text, keyText, 1); //pass input, key and mode = 1 (for decryption) to main function
+	shiftOTPCharacters(text, keyText, 1); //pass input, key and mode = 1 (for decryption) to main function
 }

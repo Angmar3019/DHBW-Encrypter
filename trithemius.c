@@ -1,6 +1,6 @@
 #include <string.h>
 
-void shiftCharacters(char *text, int mode){
+void shiftTrithemiusCharacters(char *text, int mode){
 	//iterate over every character in the given string
 	for(int i = 0; i < strlen(text); i++){
 		//get ASCII code of current character
@@ -24,8 +24,8 @@ void shiftCharacters(char *text, int mode){
 }
 
 void trithemiusEncrypt(char *text){ //called from menu
-	shiftCharacters(text, 0); //pass input and mode = 0 (for encryption) to main function
+	shiftTrithemiusCharacters(text, 0); //pass input and mode = 0 (for encryption) to main function
 }
 void trithemiusDecrypt(char *text){ //called from menu
-	shiftCharacters(text, 1); //pass input and mode = 1 (for decryption) to main function
+	shiftTrithemiusCharacters(text, 1); //pass input and mode = 1 (for decryption) to main function
 }

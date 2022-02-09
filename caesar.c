@@ -1,6 +1,6 @@
 #include <string.h>
 
-void shiftCharacters(char *text, int key, int mode){
+void shiftCaesarCharacters(char *text, int key, int mode){
 	//iterate over every character in the given string
 	for(int i = 0; i < strlen(text); i++){
 		//get ASCII code of current character
@@ -26,8 +26,8 @@ void shiftCharacters(char *text, int key, int mode){
 }
 
 void caesarEncrypt(char *text, int key){ //called from menu
-	shiftCharacters(text, key, 0); //pass input, key and mode = 0 (for encryption) to main function
+	shiftCaesarCharacters(text, key, 0); //pass input, key and mode = 0 (for encryption) to main function
 }
 void caesarDecrypt(char *text, int key){ //called from menu
-	shiftCharacters(text, key, 1); //pass input, key and mode = 1 (for decryption) to main function
+	shiftCaesarCharacters(text, key, 1); //pass input, key and mode = 1 (for decryption) to main function
 }
