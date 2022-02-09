@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include "checkInput.h"
 
 void shiftOTPCharacters(char *text, char *keyText, int mode){
 	//iterate over every character in the given string
@@ -38,16 +39,33 @@ char* createKey(int length){
 }
 
 char* otpEncryptTextOnly(char *text){ //called from menu if key was not provided by user
-	srand(time(NULL)); //set seed of rand() to a random seed
-	char *key = createKey(strlen(text)); //create a key with the same length as the text
-	shiftOTPCharacters(text,key, 0); //pass input, key and mode = 0 (for encryption) to main function
-	return key; //return key to user
+	if(checkInput(text, 0)){
+		srand(time(NULL)); //set seed of rand() to a random seed
+		char *key = createKey(strlen(text)); //create a key with the same length as the text
+		shiftOTPCharacters(text,key, 0); //pass input, key and mode = 0 (for encryption) to main function
+		return key; //return text and key to user
+	}
+	else{
+		return NULL;
+	}
 }
 
-void otpEncrypt(char *text, char *keyText){ //called from menu if key was provided by user
-	shiftOTPCharacters(text, keyText, 0); //pass input, key and mode = 0 (for encryption) to main function
+char* otpEncrypt(char *text, char *keyText){ //called from menu if key was provided by user
+	if(checkInput(text, 0)){
+		shiftOTPCharacters(text, keyText, 0); //pass input, key and mode = 0 (for encryption) to main function
+		return text;
+	}
+	else{
+		return NULL;
+	}
 }
 
-void otpDecrypt(char *text, char *keyText){ //called from menu
-	shiftOTPCharacters(text, keyText, 1); //pass input, key and mode = 1 (for decryption) to main function
+char* otpDecrypt(char *text, char *keyText){ //called from menu
+	if(checkInput(text, 0)){
+		shiftOTPCharacters(text, keyText, 1); //pass input, key and mode = 1 (for decryption) to main function
+		return text;
+	}
+	else{
+		return NULL;
+	}
 }

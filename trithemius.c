@@ -1,4 +1,5 @@
 #include <string.h>
+#include "checkInput.h"
 
 void shiftTrithemiusCharacters(char *text, int mode){
 	//iterate over every character in the given string
@@ -23,9 +24,22 @@ void shiftTrithemiusCharacters(char *text, int mode){
 	}
 }
 
-void trithemiusEncrypt(char *text){ //called from menu
-	shiftTrithemiusCharacters(text, 0); //pass input and mode = 0 (for encryption) to main function
+char* trithemiusEncrypt(char *text){ //called from menu
+	if(checkInput(text ,0)){
+		shiftTrithemiusCharacters(text, 0); //pass input and mode = 0 (for encryption) to main function
+		return text;
+	}
+	else{
+		return NULL;
+	}
 }
-void trithemiusDecrypt(char *text){ //called from menu
-	shiftTrithemiusCharacters(text, 1); //pass input and mode = 1 (for decryption) to main function
+
+char* trithemiusDecrypt(char *text){ //called from menu
+	if(checkInput(text ,0)){
+		shiftTrithemiusCharacters(text, 1); //pass input and mode = 0 (for encryption) to main function
+		return text;
+	}
+	else{
+		return NULL;
+	}
 }

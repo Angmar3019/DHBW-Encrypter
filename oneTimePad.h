@@ -1,3 +1,3 @@
 char* otpEncryptTextOnly(char*);
-void otpEncrypt(char*, char*);
-void otpDefcrypt(char*, char*);
+char* otpEncrypt(char*, char*);
+char* otpDefcrypt(char*, char*);

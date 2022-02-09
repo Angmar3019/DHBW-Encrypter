@@ -1,2 +1,2 @@
-void trithemiusEncrypt(char*);
-void trithemiusDecrypt(char*);
+char* trithemiusEncrypt(char*);
+char* trithemiusDecrypt(char*);

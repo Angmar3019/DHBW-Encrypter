@@ -1,8 +1,8 @@
-#include "checkInput.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "checkInput.h"
 
 bool checkASCII(char *text){
 	bool isAscii = true;

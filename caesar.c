@@ -1,4 +1,6 @@
 #include <string.h>
+#include <stdio.h>
+#include "checkInput.h"
 
 void shiftCaesarCharacters(char *text, int key, int mode){
 	//iterate over every character in the given string
@@ -25,9 +27,22 @@ void shiftCaesarCharacters(char *text, int key, int mode){
 	}
 }
 
-void caesarEncrypt(char *text, int key){ //called from menu
-	shiftCaesarCharacters(text, key, 0); //pass input, key and mode = 0 (for encryption) to main function
+char* caesarEncrypt(char *text, int key){ //called from menu
+	if(checkInput(text, 0)){
+		shiftCaesarCharacters(text, key, 0); //pass input, key and mode = 0 (for encryption) to main function
+		return text;
+	}
+	else{
+		return NULL;
+	}
 }
-void caesarDecrypt(char *text, int key){ //called from menu
-	shiftCaesarCharacters(text, key, 1); //pass input, key and mode = 1 (for decryption) to main function
+
+char* caesarDecrypt(char *text, int key){ //called from menu
+	if(checkInput(text, 0)){
+		shiftCaesarCharacters(text, key, 1); //pass input, key and mode = 0 (for encryption) to main function
+		return text;
+	}
+	else{
+		return NULL;
+	}
 }
