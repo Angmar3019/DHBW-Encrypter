@@ -12,7 +12,7 @@ MAIN_FILE = terminal.c
 MAIN_OBJ = $(MAIN_FILE:.c=.o)
 
 #Header files
-DEP =	checkInput.h trithemius.h \
+DEP =	checkInput.h rsa.h caesar.h morse.h oneTimePad.h trithemius.h vigenere.h \
 		menu_decrypt.h \
 		menu_encrypt.h menu_encrypt_algo.h menu_encrypt_input.h menu_encrypt_options.h menu_encrypt_output.h \
 		sha256.h \
