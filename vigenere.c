@@ -15,12 +15,11 @@ void shiftVigenereCharacters(char *text, char *key, int mode){
 		switch(mode){
 			//encrypt
 			case 0:
-				code += (keyCode - 32); //add value between 0 and 95 to the character's code (adding 96 has the same effect as adding 0, 97 the same as 1 and so on, so values are kept between 0 and 95)
-				//printf("Code: %d Keycode: %d\n", code, keyCode);
+				code += (keyCode - 32); //add value between 0 and 94 to the character's code (SPACE in Key = 0 when adding, since ASCII(SPACE) = 32)
 				break;
 			//decrypt
 			case 1:
-				code -= (keyCode - 32); //subtract value between 0 and 95 to the character's code (subtracting 96 has the same effect as subtracting 0, see above)
+				code -= (keyCode - 32); //subtract value between 0 and 95 to the character's code (see above)
 				break;
 		}
 		code > 126? code += (-127) + 32 : code; //if the new value is above the defined range, loop back to beginning of the range (only when encrypting)
