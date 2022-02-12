@@ -4,6 +4,7 @@ OUT_DIR = obj
 
 #GCC suffix
 CC = gcc
+XFLAG = -Isrc/Algorithms -Isrc/Decrypt -Isrc/Encrypt -Isrc/Librarys -Isrc/Menu
 CFLAG = -lssl -lcrypto
 
 #Main programm 
@@ -12,10 +13,10 @@ MAIN_FILE = terminal.c
 MAIN_OBJ = $(MAIN_FILE:.c=.o)
 
 #Header files
-DEP =	checkInput.h rsa.h caesar.h morse.h oneTimePad.h trithemius.h vigenere.h \
+DEP =	checkInput.h caesar.h morse.h oneTimePad.h trithemius.h vigenere.h \
 		menu_decrypt.h \
 		menu_encrypt.h menu_encrypt_algo.h menu_encrypt_input.h menu_encrypt_options.h menu_encrypt_output.h \
-		sha256.h \
+		getch.h navigation.h sha256.h \
 		menu_core.h menu_home.h
 FILE = $(MAIN_FILE) $(DEP:.h=.c)
 OBJ =  $(addprefix $(OUT_DIR)/,$(DEP:.h=.o)) 
@@ -25,9 +26,10 @@ $(Program): $(MAIN_OBJ) $(OBJ)
 	$(CC) -o $@ $^ $(CFLAG)
 
 $(OUT_DIR)/%.o: %.c %.h
-	$(CC) -c $< -o $@ $(CFLAG)
+	$(CC) $(XFLAG) -c $< -o $@ $(CFLAG)
 
 $(MAIN_OBJ): $(FILE) $(DEP)
+	$(CC) $(XFLAG) -c $< -o $@ $(CFLAG)
 
 #run with "make all"
 all: clean $(Program) run

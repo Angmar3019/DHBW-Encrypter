@@ -1,0 +1,1 @@
+void calcSHA256 (const char *);
