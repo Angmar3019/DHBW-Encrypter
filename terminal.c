@@ -19,6 +19,10 @@
 #include "menu_encrypt.h"
 
 //Decrypt - Each step is divided into a single c-file
+#include "menu_decrypt_algo.h"
+#include "menu_decrypt_input.h"
+#include "menu_decrypt_options.h"
+#include "menu_decrypt_output.h"
 #include "menu_decrypt.h"
 
 //Algorithm - Algorithm that are available for the encryption and decryption process

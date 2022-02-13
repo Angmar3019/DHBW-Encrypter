@@ -56,6 +56,17 @@ bool checkMorse(char *text){
 	return isMorse;
 }
 
+bool checkNumbers(char *text){
+	bool isNumber = true;
+	for(int i = 0; i < strlen(text); i++){ //iterate over every character
+		char currentChar = *(text + i);
+		if(!(currentChar >= 48 && currentChar <= 57)){ //only accept numbers between 0 - 9
+			isNumber = false;
+		}
+	}
+	return isNumber;
+}
+
 bool checkInput(char *text, int mode){
 	//0 = ASCII, 1 = Alphabet, 2 = Morse
 	switch(mode){

@@ -28,7 +28,7 @@ void menu_header() { //Menu header for the submenus encrypt/decrypt
     printf("╠═════════════════════╦═════════════════╦═══════════════════╦═══════════════════╣\n");         
 }
 
-void menu_tab_encrypt(int state) { //Different progress in encrypt/decrypt submenus
+void menu_tab(int state) { //Different progress in encrypt/decrypt submenus
     state--;
 	char tab_encrypt[4][100] = {
 		"║     »Algorithm«     ║      Input      ║      Options      ║       Output      ║",

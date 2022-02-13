@@ -14,7 +14,7 @@ MAIN_OBJ = $(MAIN_FILE:.c=.o)
 
 #Header files
 DEP =	checkInput.h caesar.h morse.h oneTimePad.h trithemius.h vigenere.h \
-		menu_decrypt.h \
+		menu_decrypt.h menu_decrypt_algo.h menu_decrypt_input.h menu_decrypt_options.h menu_decrypt_output.h \
 		menu_encrypt.h menu_encrypt_algo.h menu_encrypt_input.h menu_encrypt_options.h menu_encrypt_output.h \
 		getch.h navigation.h sha256.h \
 		menu_core.h menu_home.h
@@ -33,7 +33,10 @@ $(MAIN_OBJ): $(FILE) $(DEP)
 
 #run with "make all"
 all: clean $(Program) run
-	
+
+#Compile only and dont execute
+compile: clean $(Program)
+
 #run with "make clean"
 clean:
 	@rm -f $(OUT_DIR)/*.o $(MAIN_OBJ) $(Program)	

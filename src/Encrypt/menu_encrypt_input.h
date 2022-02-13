@@ -1,0 +1,1 @@
+void menu_encrypt_input (int, int);
