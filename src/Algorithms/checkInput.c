@@ -79,6 +79,9 @@ bool checkInput(char *text, int mode){
 		case 2:
 			return checkMorse(text);
 			break;
+		case 3:
+			return checkNumbers(text);
+			break;
 		default:
 			return 0;
 			break;
