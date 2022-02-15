@@ -60,6 +60,7 @@ void encrypt_print(char *output) {
         break;
     
     case 2:
+        ;
         FILE *file_output;
     
         file_output = fopen("encryptet_message.txt", "w"); //Creat encryptet_message.txt file

@@ -108,6 +108,7 @@ void decrypt_print(char *output) {
         break;
     
     case 2:
+        ;
         FILE *file_output;
     
         file_output = fopen("decryptet_message.txt", "w"); //Creat decryptet_message.txt file
