@@ -7,8 +7,8 @@ CC = gcc
 XFLAG = -Isrc/Algorithms -Isrc/Decrypt -Isrc/Encrypt -Isrc/Librarys -Isrc/Menu
 CFLAG = -lssl -lcrypto
 
-#Main programm 
-Program = DHBW_Encrypter_Launcher
+#Main programm
+Program = DHBW_Encrypter_Launcher.exe
 MAIN_FILE = DHBW_Encrypter.c
 MAIN_OBJ = $(MAIN_FILE:.c=.o)
 
@@ -19,7 +19,7 @@ DEP =	checkInput.h caesar.h morse.h oneTimePad.h trithemius.h vigenere.h \
 		getch.h navigation.h sha256.h \
 		menu_core.h menu_home.h
 FILE = $(MAIN_FILE) $(DEP:.h=.c)
-OBJ =  $(addprefix $(OUT_DIR)/,$(DEP:.h=.o)) 
+OBJ =  $(addprefix $(OUT_DIR)/,$(DEP:.h=.o))
 
 #Build and link process
 $(Program): $(MAIN_OBJ) $(OBJ)
@@ -39,7 +39,7 @@ compile: clean $(Program)
 
 #run with "make clean"
 clean:
-	@rm -f $(OUT_DIR)/*.o $(MAIN_OBJ) $(Program)	
+	@rm -f $(OUT_DIR)/*.o $(MAIN_OBJ) $(Program)
 
 #run with "make run"
 run:
