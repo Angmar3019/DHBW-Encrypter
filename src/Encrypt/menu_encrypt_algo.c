@@ -13,9 +13,9 @@ void algo_list_encrypt(int state, int checked) {
 
     char algo_encrypt[5][100] = {
         "Caesar                                                              ║",
-        "Morse                                                               ║",
+        "Morse (A-Z)                                                         ║",
         "Trithemius                                                          ║",
-        "Vifenere                                                            ║",
+        "Vigenere                                                            ║",
         "OneTimePad                                                          ║",       
     };
 

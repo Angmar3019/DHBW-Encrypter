@@ -15,7 +15,7 @@ void algo_list(int state, int checked) {
         "Caesar                                                              ║",
         "Morse                                                               ║",
         "Trithemius                                                          ║",
-        "Vifenere                                                            ║",
+        "Vigenere                                                            ║",
         "OneTimePad                                                          ║",       
     };
 

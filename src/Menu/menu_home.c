@@ -20,7 +20,7 @@ void menu_home (int state) { //Main menu of the program
 	menu_header_home();
 	menu_line(5);
 	printf("%s\n", var[state -1]); //Print the current selected option
-	menu_line(3);
+	menu_line(5);
 	menu_footer();
 
 	//Read the input and process it accordingly

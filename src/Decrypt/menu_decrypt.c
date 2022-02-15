@@ -5,10 +5,12 @@
 
 #include "menu_core.h"
 #include "menu_home.h"
+#include "navigation.h"
 #include "sha256.h"
 
 #include "menu_decrypt_algo.h"
 #include "menu_decrypt_output.h"
+#include "menu_decrypt_input.h"
 #include "checkInput.h"
 
 #include "checkInput.h"
@@ -35,10 +37,74 @@ void menu_decrypt() {
 }
 
 void decrypt_print(char *output) {
+    if (global_options == 1)
+    {
+        char extern global_checksum[];
+
+        char temp[100];
+
+        strcpy(temp, global_checksum);
+
+        calcSHA256(output);
+
+        if (strcmp(temp, global_checksum) == 0) { 
+            menu_clear();
+
+            menu_header();
+            menu_tab(4);
+            menu_line(1);
+            printf("║ The checksums of the contents match                                           ║\n");
+            menu_line(1);
+            printf("║                              Press S to continue                              ║\n");
+            menu_line(1);
+            menu_footer();
+
+            int input;
+            input = navigation();
+
+        } else {
+            menu_clear();
+
+            menu_header();
+            menu_tab(4);
+            menu_line(1);
+            printf("║ The checksums of the contents don't match. Cancelling the process!            ║\n");
+            menu_line(1);
+            printf("║                              Press S to continue                              ║\n");
+            menu_line(1);
+            menu_footer();
+
+            int input;
+            input = navigation();
+
+            menu_decrypt_input(1,1);
+        }
+    }
+
     switch (global_output)
     {
     case 1:
-        printf("%s", output);
+        menu_clear();
+
+        menu_header();
+        menu_tab(4);
+        printf("║ The decrypted message is:                                                     ║\n");
+        menu_line(1);
+        printf("\n");
+        printf("%s\n", output);
+        printf("\n");
+        menu_line(1);
+        printf("║                              Press S to continue                              ║\n");
+        menu_line(1);
+        menu_footer();
+
+        int input;
+        input = navigation();
+
+        if (input != 0) //Enter
+        {
+            decrypt_print(global_text);
+        }
         break;
     
     case 2:
@@ -54,30 +120,47 @@ void decrypt_print(char *output) {
 
         fputs(output, file_output);
         fclose(file_output);
+
+                menu_clear();
+
+        menu_header();
+        menu_tab(4);
+        menu_line(1);
+        printf("║ The encrypted message was written to the file decryptet_message.txt           ║\n");
+        menu_line(4);
+        printf("║                              Press S to continue                              ║\n");
+        menu_line(1);
+        menu_footer();
+
+        input = navigation();
         break;
     }
 }
 
+void menu_decrypt_error() {
+    menu_clear();
+
+    menu_header();
+    menu_tab(4);
+    menu_line(1);
+    printf("║ Error: Unable to decrypt the content                                          ║\n");
+    menu_line(1);
+    printf("║                              Press S to continue                              ║\n");
+    menu_line(1);
+    menu_footer();
+
+    int input;
+	input = navigation();
+
+    if (input == 0) //Enter
+    {
+        menu_decrypt_input(1,1);
+    } else {
+        menu_decrypt_error();
+    }
+}
+
 void decrypt() {
-    FILE *file_checksum;
-
-    switch (global_options) //Check if geneation of a checksum is required
-        {
-        case 1:
-            calcSHA256(global_text);
-            file_checksum = fopen("checksum.txt", "w"); //Creat checksum.txt file
-
-            if(file_checksum == NULL) //Abort if file is not created
-                {
-                    printf("Unable to create file.\n");
-                    exit(EXIT_FAILURE);
-                }
-
-            fputs(global_checksum, file_checksum);
-            fclose(file_checksum);
-            break;
-        }
-
         menu_clear();
 
         menu_header();
@@ -88,8 +171,8 @@ void decrypt() {
         switch (global_algo)
         {
         case 1: //Caesar 
-            printf("║ Please enter a key to decrypt the content. The key should contain the         ║\n");
-            printf("║ characters 0-9. Alternatively you can enter none and a key will be generated. ║\n");
+            printf("║ Please enter the key to decrypt the content. The key should only contain the  ║\n");
+            printf("║ characters 0-9.                                                               ║\n");
             menu_line(1);
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
@@ -105,22 +188,59 @@ void decrypt() {
             break;
         
         case 2: //Morse 
+            if (morseDecrypt(global_text) != NULL) {
+                decrypt_print(morseDecrypt(global_text));
 
+            } else {
+                menu_decrypt_error();
+            }
             break;
 
         case 3: //Trithemius  
+            if (trithemiusDecrypt(global_text) != NULL) {
+                decrypt_print(trithemiusDecrypt(global_text));
 
+            } else {
+                menu_decrypt_error();
+            }
             break;
 
-        case 4: //Vifenere
+        case 4: //Vigenere
+            printf("║ Please enter the key to decrypt the content. The key should only contain the  ║\n");
+            printf("║ keys on the keyboard (ASCII Characters between 32 - 126).                     ║\n");
+            menu_line(3);
+            menu_footer_open();
+            printf("║ Please enter a key                                                            ║\n");
+            scanf("%s", decrypt_key);
+            if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
+                menu_decrypt_output(1, global_output);
 
+            } else if (vigenereDecrypt(global_text, decrypt_key) != NULL) {
+                decrypt_print(vigenereDecrypt(global_text, decrypt_key));
+
+            } else {
+                menu_decrypt_error();
+            }
             break;
 
         case 5: //OneTimePad
+            printf("║ Please enter the key to decrypt the content. The key should only contain the  ║\n");
+            printf("║ keys on the keyboard (ASCII Characters between 32 - 126).                     ║\n");
+            menu_line(3);
+            menu_footer_open();
+            printf("║ Please enter a key                                                            ║\n");
+            scanf("%s", decrypt_key);
 
+            if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
+                menu_decrypt_output(1, global_output);
+
+            } else if (otpDecrypt(global_text, decrypt_key) != NULL) {
+                decrypt_print(otpDecrypt(global_text, decrypt_key));
+
+            } else {
+                menu_decrypt_error();
+            }
             break;   
         }
-        exit(0);
         menu_home(1);
-
 }

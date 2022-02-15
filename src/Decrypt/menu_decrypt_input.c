@@ -7,6 +7,7 @@
 #include "navigation.h"
 
 #include "menu_decrypt_algo.h"
+#include "menu_decrypt_input.h"
 #include "menu_decrypt_options.h"
 
 void method_list (int state, int checked) {
@@ -53,7 +54,7 @@ void method_list (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(3);
         printf("%s\n", navigation[0]);
 
     } else if (state > input_opt){  //Case that "back" or "next" were selected
@@ -71,10 +72,10 @@ void method_list (int state, int checked) {
         }
 
         if (state == input_opt + 1) {
-            menu_line(1);
+            menu_line(3);
             printf("%s\n", navigation[1]);
         } else if (state == input_opt + 2) {
-            menu_line(1);
+            menu_line(3);
             printf("%s\n", navigation[2]);
         }
 
@@ -100,7 +101,7 @@ void method_list (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(3);
         printf("%s\n", navigation[0]);
 
     } else if (state_before > checked_before) {     //Case that checked is before state
@@ -126,7 +127,7 @@ void method_list (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(3);
         printf("%s\n", navigation[0]);
 
     }
@@ -136,7 +137,9 @@ void method_list (int state, int checked) {
 void input_field_decrypt (int state, int checked) {
 
     char extern global_text[];
-
+    
+    strcpy(global_text, ""); //Clears the global varibale
+    
     menu_clear();
 
     menu_header();
@@ -144,6 +147,7 @@ void input_field_decrypt (int state, int checked) {
 
     menu_line(1);
     method_list(state,checked);
+    menu_line(1);
     menu_footer_open();
 
     if (checked == 1) { //Manual input - enter the text directly in the terminal
@@ -172,6 +176,27 @@ void input_field_decrypt (int state, int checked) {
         scanf("%s", fname); //Reads the name of the file or the path
 
         fptr = fopen (fname, "r");  //Opens the corresponding file
+
+        if (fptr == NULL)
+        {
+            menu_clear();
+            
+            menu_header();
+            menu_tab(4);
+            menu_line(1);
+            printf("║ Error: Unable to open the file.                                               ║\n");
+            menu_line(1);
+            printf("║                              Press S to continue                              ║\n");
+            menu_line(1);
+            menu_footer();
+
+            int input;
+            input = navigation();
+
+            menu_decrypt_input(1,1);
+
+        } else {
+
         str1 = fgetc(fptr);
         while (str1 != EOF)
             {
@@ -180,6 +205,7 @@ void input_field_decrypt (int state, int checked) {
             }
 
         fclose (fptr);  //Closes the corresponding file
+        }
     }    
 }
 

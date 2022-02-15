@@ -8,6 +8,9 @@ char extern global_checksum[100];
 void calcSHA256 (const char *input) {
     char temp[100];
 
+    strcpy(global_checksum, ""); //Clears the global varibale
+
+
     unsigned char *d = SHA256(input, strlen(input), 0); //Generate SHA256SUM of input
 
     int i;

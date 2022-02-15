@@ -22,7 +22,7 @@ int navigation () { //Reads keyboard input and returns a specified number for la
     }
     else //Retry if invalid input is given
     {
-        printf("Invalid Input, try again!\n");
+        printf("Invalid Input for navigation, try again!\n");
         navigation();
     }
 }

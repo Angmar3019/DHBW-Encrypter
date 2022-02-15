@@ -18,13 +18,13 @@ void menu_clear() { //Clean terminal with the command for the specific operating
 
 void menu_header_home() { //Menu header for the main menu
     printf("╔═══════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                      NAME                                     ║\n");
+    printf("║                                 DHBW Encrypter                                ║\n");
     printf("╠═══════════════════════════════════════════════════════════════════════════════╣\n");
 }
 
 void menu_header() { //Menu header for the submenus encrypt/decrypt
     printf("╔═══════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                      NAME                                     ║\n");
+    printf("║                                 DHBW Encrypter                                ║\n");
     printf("╠═════════════════════╦═════════════════╦═══════════════════╦═══════════════════╣\n");         
 }
 

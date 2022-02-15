@@ -41,7 +41,7 @@ int global_output = 1;
 
 #define STRING 4096
 char global_text[STRING];   //Input text
-
+char global_file_name[STRING];  //File that contains the path or filename for encryption / decryption
 char global_checksum[100];  //Checksum
 
 //Main function

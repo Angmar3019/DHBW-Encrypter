@@ -12,7 +12,7 @@
 void options_list_encrypt (int state, int checked) {
     
     char option_encrypt[1][100] = {
-       "Create a checksum file for the unencrypted text                     ║",
+       "Create a checksum file for the unencrypted text.                    ║",
     };
     
     char navigation[3][100] = {
@@ -31,19 +31,19 @@ void options_list_encrypt (int state, int checked) {
         {
         case 1:
             printf("%s%s\n", box_unchecked_sel, option_encrypt[0]);
-            menu_line(3);
+            menu_line(5);
             printf("%s\n", navigation[0]);
             break;
         
         case 2:
             printf("%s%s\n", box_unchecked, option_encrypt[0]);
-            menu_line(3);
+            menu_line(5);
             printf("%s\n", navigation[1]);
             break;
 
         case 3:
             printf("%s%s\n", box_unchecked, option_encrypt[0]);
-            menu_line(3);
+            menu_line(5);
             printf("%s\n", navigation[2]);
             break;
         }
@@ -52,19 +52,19 @@ void options_list_encrypt (int state, int checked) {
         {
         case 1:
             printf("%s%s\n", box_checked_sel, option_encrypt[0]);
-            menu_line(3);
+            menu_line(5);
             printf("%s\n", navigation[0]);
             break;
         
         case 2:
             printf("%s%s\n", box_checked, option_encrypt[0]);
-            menu_line(3);
+            menu_line(5);
             printf("%s\n", navigation[1]);
             break;
 
         case 3:
             printf("%s%s\n", box_checked, option_encrypt[0]);
-            menu_line(3);
+            menu_line(5);
             printf("%s\n", navigation[2]);
             break;
         }

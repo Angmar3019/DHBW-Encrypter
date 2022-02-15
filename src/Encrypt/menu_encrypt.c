@@ -5,10 +5,12 @@
 
 #include "menu_core.h"
 #include "menu_home.h"
+#include "navigation.h"
 #include "sha256.h"
 
 #include "menu_encrypt_algo.h"
 #include "menu_encrypt_output.h"
+#include "menu_encrypt_input.h"
 #include "checkInput.h"
 
 #include "checkInput.h"
@@ -38,7 +40,23 @@ void encrypt_print(char *output) {
     switch (global_output)
     {
     case 1:
-        printf("%s", output);
+        menu_clear();
+
+        menu_header();
+        menu_tab(4);
+        printf("║ The encrypted message is:                                                     ║\n");
+        menu_line(1);
+        printf("\n");
+        printf("%s\n", output);
+        printf("\n");
+        menu_line(1);
+        printf("║                              Press S to continue                              ║\n");
+        menu_line(1);
+        menu_footer();
+
+        int input;
+        input = navigation();
+
         break;
     
     case 2:
@@ -54,7 +72,43 @@ void encrypt_print(char *output) {
 
         fputs(output, file_output);
         fclose(file_output);
+
+        menu_clear();
+
+        menu_header();
+        menu_tab(4);
+        menu_line(1);
+        printf("║ The encrypted message was written to the file encryptet_message.txt           ║\n");
+        menu_line(4);
+        printf("║                              Press S to continue                              ║\n");
+        menu_line(1);
+        menu_footer();
+
+        input = navigation();
         break;
+    }
+}
+
+void menu_encrypt_error() {
+    menu_clear();
+
+    menu_header();
+    menu_tab(4);
+    menu_line(1);
+    printf("║ Error: Unable to encrypt the content                                          ║\n");
+    menu_line(1);
+    printf("║                              Press S to continue                              ║\n");
+    menu_line(1);
+    menu_footer();
+
+    int input;
+	input = navigation();
+
+    if (input == 0) //Enter
+    {
+        menu_encrypt_input(1,1);
+    } else {
+        menu_encrypt_error();
     }
 }
 
@@ -88,39 +142,87 @@ void encrypt() {
         switch (global_algo)
         {
         case 1: //Caesar 
-            printf("║ Please enter a key to encrypt the content. The key should contain the         ║\n");
-            printf("║ characters 0-9. Alternatively you can enter none and a key will be generated. ║\n");
+            printf("║ Please enter a key to encrypt the content. The key should only contain the    ║\n");
+            printf("║ numbers 0-9.                                                                  ║\n");
+            menu_line(5);
+            menu_footer_open();
+            printf("║ Please enter a key                                                            ║\n");
+            scanf("%s", encrypt_key);
+
+            if (checkNumbers(encrypt_key) == false) {   //Checks if the key consists only of numbers
+                menu_encrypt_output(1, global_output);
+                            }
+            int temp;
+            temp = atoi(encrypt_key); //Convert char to int
+
+            if (caesarEncrypt(global_text, temp) != NULL) {
+                encrypt_print(caesarEncrypt(global_text, temp));
+
+            } else {
+                menu_encrypt_error();
+            }
+            break;
+        
+        case 2: //Morse 
+            if (morseEncrypt(global_text) != NULL) {
+                encrypt_print(morseEncrypt(global_text));
+
+            } else {
+                menu_encrypt_error();
+            }
+            break;
+
+        case 3: //Trithemius
+            if (trithemiusEncrypt(global_text) != NULL) {
+                encrypt_print(trithemiusEncrypt(global_text));
+
+            } else {
+                menu_encrypt_error();
+            }
+            break;
+
+        case 4: //Vigenere
+            printf("║ Please enter a key to encrypt the content. The key should only contain the    ║\n");
+            printf("║ keys on the keyboard (ASCII Characters between 32 - 126).                     ║\n");
+            menu_line(3);
+            menu_footer_open();
+            printf("║ Please enter a key                                                            ║\n");
+            scanf("%s", encrypt_key);
+            if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
+                menu_encrypt_output(1, global_output);
+
+            } else if (vigenereEncrypt(global_text, encrypt_key) != NULL) {
+                encrypt_print(vigenereEncrypt(global_text, encrypt_key));
+
+            } else {
+                menu_encrypt_error();
+            }
+            break;
+
+        case 5: //OneTimePad
+            printf("║ Please enter a key to encrypt the content. The key should only contain the    ║\n");
+            printf("║ keys on the keyboard (ASCII Characters between 32 - 126).                     ║\n");
+            printf("║ The key must be as long as the entered message. If you want to generate one,  ║\n");
+            printf("║ then use -genkey- as the key input.                                           ║\n");
             menu_line(1);
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
             scanf("%s", encrypt_key);
-            if (checkNumbers(encrypt_key) == false) {   //Checks if the key consists only of numbers
+
+            if (encrypt_key == "genkey") {  //Generates a key, if the user don't give a key
+                encrypt_print(otpEncryptTextOnly(global_text));
+
+            } else if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_encrypt_output(1, global_output);
+
+            } else if (otpEncrypt(global_text, encrypt_key) != NULL) {
+                encrypt_print(otpEncrypt(global_text, encrypt_key));
+
+            } else {
+                menu_encrypt_error();
             }
-            int temp;
-            temp = atoi(encrypt_key); //Convert char to int
-
-            encrypt_print(caesarEncrypt(global_text, temp));
-
-            break;
-        
-        case 2: //Morse 
-
-            break;
-
-        case 3: //Trithemius  
-
-            break;
-
-        case 4: //Vifenere
-
-            break;
-
-        case 5: //OneTimePad
-
             break;   
         }
-        exit(0);
         menu_home(1);
 
 }

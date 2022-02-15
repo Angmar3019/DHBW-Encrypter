@@ -7,6 +7,7 @@
 #include "navigation.h"
 
 #include "menu_encrypt_algo.h"
+#include "menu_encrypt_input.h"
 #include "menu_encrypt_options.h"
 
 void method_list_encrypt (int state, int checked) {
@@ -53,7 +54,7 @@ void method_list_encrypt (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(3);
         printf("%s\n", navigation[0]);
 
     } else if (state > input_opt){  //Case that "back" or "next" were selected
@@ -71,10 +72,10 @@ void method_list_encrypt (int state, int checked) {
         }
 
         if (state == input_opt + 1) {
-            menu_line(1);
+            menu_line(3);
             printf("%s\n", navigation[1]);
         } else if (state == input_opt + 2) {
-            menu_line(1);
+            menu_line(3);
             printf("%s\n", navigation[2]);
         }
 
@@ -100,7 +101,7 @@ void method_list_encrypt (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(3);
         printf("%s\n", navigation[0]);
 
     } else if (state_before > checked_before) {     //Case that checked is before state
@@ -126,7 +127,7 @@ void method_list_encrypt (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(3);
         printf("%s\n", navigation[0]);
 
     }
@@ -137,6 +138,8 @@ void input_field_encrypt (int state, int checked) {
 
     char extern global_text[];
 
+    strcpy(global_text, ""); //Clears the global varibale
+
     menu_clear();
 
     menu_header();
@@ -144,6 +147,7 @@ void input_field_encrypt (int state, int checked) {
 
     menu_line(1);
     method_list_encrypt(state,checked);
+    menu_line(1);
     menu_footer_open();
 
     if (checked == 1) { //Manual input - enter the text directly in the terminal
@@ -172,14 +176,43 @@ void input_field_encrypt (int state, int checked) {
         scanf("%s", fname); //Reads the name of the file or the path
 
         fptr = fopen (fname, "r");  //Opens the corresponding file
-        str1 = fgetc(fptr);
-        while (str1 != EOF)
-            {
-                strcat(global_text, pstr);  //Stores the contents of the file in a global variable
-                str1 = fgetc(fptr);
-            }
 
-        fclose (fptr);  //Closes the corresponding file
+        if (fptr == NULL)
+        {
+            menu_clear();
+            
+            menu_header();
+            menu_tab(4);
+            menu_line(1);
+            printf("║ Error: Unable to open the file.                                               ║\n");
+            menu_line(1);
+            printf("║                              Press S to continue                              ║\n");
+            menu_line(1);
+            menu_footer();
+
+            int input;
+            input = navigation();
+
+            menu_encrypt_input(1,1);
+
+        } else {
+
+            str1 = fgetc(fptr);
+            while (str1 != EOF)
+                {
+                    strcat(global_text, pstr);  //Stores the contents of the file in a global variable
+                    str1 = fgetc(fptr);
+                }
+
+            fclose (fptr);  //Closes the corresponding file
+
+            char *pch = strstr(global_text, "\n"); //Replaces the newline with spaces 
+            while(pch != NULL)
+            {
+                strncpy(pch, " ", 1);
+                pch = strstr(global_text, "\n");
+            }
+        }
     }    
 }
 

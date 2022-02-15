@@ -10,7 +10,7 @@
 #include "menu_decrypt_options.h"
 #include "sha256.h"
 
-void output_list (int state, int checked) {
+void output_list_decrypt (int state, int checked) {
 
     char output[2][100] = {
        "Output in Terminal                                                  ║",
@@ -53,7 +53,7 @@ void output_list (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(4);
         printf("%s\n", navigation[0]);
 
     } else if (state > output_opt){     //Case that "back" or "next" were selected
@@ -71,10 +71,10 @@ void output_list (int state, int checked) {
         }
 
         if (state == output_opt + 1) {
-            menu_line(1);
+            menu_line(4);
             printf("%s\n", navigation[1]);
         } else if (state == output_opt + 2) {
-            menu_line(1);
+            menu_line(4);
             printf("%s\n", navigation[2]);
         }
 
@@ -100,7 +100,7 @@ void output_list (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(4);
         printf("%s\n", navigation[0]);
 
     } else if (state_before > checked_before) { //Case that checked is before state
@@ -126,7 +126,7 @@ void output_list (int state, int checked) {
             line++;
         }
 
-        menu_line(1);
+        menu_line(4);
         printf("%s\n", navigation[0]);
 
     }
@@ -141,7 +141,7 @@ void menu_decrypt_output (int state, int checked) {
     menu_tab(4);
 
     menu_line(1);
-    output_list(state,checked);
+    output_list_decrypt(state,checked);
     menu_line(1);
 	menu_footer();
     

@@ -8,8 +8,8 @@ XFLAG = -Isrc/Algorithms -Isrc/Decrypt -Isrc/Encrypt -Isrc/Librarys -Isrc/Menu
 CFLAG = -lssl -lcrypto
 
 #Main programm 
-Program = finalprogramm
-MAIN_FILE = terminal.c
+Program = DHBW_Encrypter_Launcher
+MAIN_FILE = DHBW_Encrypter.c
 MAIN_OBJ = $(MAIN_FILE:.c=.o)
 
 #Header files
