@@ -244,7 +244,7 @@ void encrypt() {
             printf("║ Please enter a key to encrypt the content. The key should only contain the    ║\n");
             printf("║ keys on the keyboard (ASCII Characters between 32 - 126).                     ║\n");
             printf("║ The key must be as long as the entered message. If you want to generate one,  ║\n");
-            printf("║ then use -genkey- as the key input.                                           ║\n");
+            printf("║ leave the input empty.                                                        ║\n");
             menu_line(1);
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
@@ -272,7 +272,25 @@ void encrypt() {
                 menu_encrypt_output(1, global_output); //Calls the output menu again to enter a correct key
             }
             else{
-                output = otpEncrypt(global_text, encrypt_key);
+                if (strlen(global_text) != strlen(encrypt_key)) { //If the key is not the same length as the content to encrypt
+                    menu_clear();
+
+                    menu_header();
+                    menu_tab(4);
+                    menu_line(1);
+                    printf("║ Error: The entered key has not the same length as the content to encrypt.     ║\n");
+                    menu_line(5);
+                    printf("║                              Press S to continue                              ║\n");
+                    menu_line(1);
+                    menu_footer();
+
+                    int input;
+                    input = navigation();
+                    
+                    menu_encrypt_output(1, global_output); //Calls the output menu again to enter a correct key
+                } else {
+                    output = otpEncrypt(global_text, encrypt_key);
+                }
             }
 
             if (output != NULL) {
