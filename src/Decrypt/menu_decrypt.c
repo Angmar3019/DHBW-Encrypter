@@ -106,11 +106,11 @@ void decrypt_print(char *output) {
             decrypt_print(global_text);
         }
         break;
-    
+
     case 2:
         ;
         FILE *file_output;
-    
+
         file_output = fopen("decryptet_message.txt", "w"); //Creat decryptet_message.txt file
 
         if(file_output == NULL) //Abort if file is not created
@@ -168,7 +168,7 @@ void decrypt() {
         menu_tab(4);
 
         menu_line(1);
-
+        char *output;
         switch (global_algo)
         {
         case 1: //Caesar 
@@ -184,10 +184,10 @@ void decrypt() {
             int temp_key;
             temp_key = atoi(decrypt_key); //Convert char to int
 
-            caesarDecrypt(global_text, temp_key);
+            output = caesarDecrypt(global_text, temp_key);
 
             if (global_text != NULL) {
-                decrypt_print(global_text);
+                decrypt_print(output);
 
             } else {
                 menu_decrypt_error();
@@ -195,23 +195,23 @@ void decrypt() {
             break;
 
             break;
-        
-        case 2: //Morse 
-            morseDecrypt(global_text);
 
-            if (global_text != NULL) {
-                decrypt_print(global_text);
+        case 2: //Morse
+            output = morseDecrypt(global_text);
+
+            if (output != NULL) {
+                decrypt_print(output);
 
             } else {
                 menu_decrypt_error();
             }
-            break;  
+            break;
 
-        case 3: //Trithemius  
-            trithemiusDecrypt(global_text);
+        case 3: //Trithemius
+            output = trithemiusDecrypt(global_text);
 
-            if (global_text != NULL) {
-                decrypt_print(global_text);
+            if (output != NULL) {
+                decrypt_print(output);
 
             } else {
                 menu_decrypt_error();
@@ -224,16 +224,16 @@ void decrypt() {
             menu_line(3);
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
-            scanf("%s", decrypt_key);
+            scanf("%[^\n]", decrypt_key);
 
             if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_decrypt_output(1, global_output);
-            } 
-            
-            vigenereDecrypt(global_text, decrypt_key);
+            }
 
-            if (global_text != NULL) {
-                decrypt_print(global_text);
+            output = vigenereDecrypt(global_text, decrypt_key);
+
+            if (output != NULL) {
+                decrypt_print(output);
 
             } else {
                 menu_decrypt_error();
@@ -246,21 +246,21 @@ void decrypt() {
             menu_line(3);
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
-            scanf("%s", decrypt_key);
+            scanf("%[^\n]", decrypt_key);
 
             if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_decrypt_output(1, global_output);
             }
 
-            otpDecrypt(global_text, decrypt_key);
+            output = otpDecrypt(global_text, decrypt_key);
 
-            if (global_text != NULL) {
-                decrypt_print(global_text);
+            if (output != NULL) {
+                decrypt_print(output);
 
             } else {
                 menu_decrypt_error();
             }
-            break;   
+            break;
         }
         menu_home(1);
 }

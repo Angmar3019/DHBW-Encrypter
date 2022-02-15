@@ -140,6 +140,7 @@ void encrypt() {
 
         menu_line(1);
 
+        char *output;
         switch (global_algo)
         {
         case 1: //Caesar 
@@ -156,10 +157,10 @@ void encrypt() {
             int temp_key;
             temp_key = atoi(encrypt_key); //Convert char to int
 
-            caesarEncrypt(global_text, temp_key);
+            output = caesarEncrypt(global_text, temp_key);
 
-            if (global_text != NULL) {
-                encrypt_print(global_text);
+            if (output != NULL) {
+                encrypt_print(output);
 
             } else {
                 menu_encrypt_error();
@@ -167,7 +168,7 @@ void encrypt() {
             break;
 
         case 2:; //Morse
-            char *output = morseEncrypt(global_text);
+            output = morseEncrypt(global_text);
 
             if (output != NULL) {
                 encrypt_print(output);
@@ -178,10 +179,10 @@ void encrypt() {
             break;
 
         case 3: //Trithemius
-            trithemiusEncrypt(global_text);
+            output = trithemiusEncrypt(global_text);
 
-            if (global_text != NULL) {
-                encrypt_print(global_text);
+            if (output != NULL) {
+                encrypt_print(output);
 
             } else {
                 menu_encrypt_error();
@@ -194,16 +195,16 @@ void encrypt() {
             menu_line(3);
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
-            scanf("%s", encrypt_key);
+            scanf("%[^\n]", encrypt_key); //scan until user presses enter (until newline char)
 
             if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_encrypt_output(1, global_output);
             }
 
-            vigenereEncrypt(global_text, encrypt_key);
+            output = vigenereEncrypt(global_text, encrypt_key);
 
-            if (global_text != NULL) {
-                encrypt_print(global_text);
+            if (output != NULL) {
+                encrypt_print(output);
 
             } else {
                 menu_encrypt_error();
@@ -218,25 +219,26 @@ void encrypt() {
             menu_line(1);
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
-            scanf("%s", encrypt_key);
+            scanf("%[^\n]", encrypt_key); //scan until user presses enter (until newline char)
 
-            if (encrypt_key == "genkey") {  //Generates a key, if the user don't give a key
-                otpEncryptTextOnly(global_text);
-                encrypt_print(global_text);
+            if (strcmp(encrypt_key, "genkey") == 0){  //Generates a key, if the user doesn't give a key
+                char *encrypt_key_ptr = createKey(strlen(global_text));
+                output = otpEncrypt(global_text, encrypt_key_ptr);
 
             } else if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_encrypt_output(1, global_output);
             }
+            else{
+                output = otpEncrypt(global_text, encrypt_key);
+            }
 
-            otpEncrypt(global_text, encrypt_key);
-
-            if (global_text != NULL) {
-                encrypt_print(global_text);
+            if (output != NULL) {
+                encrypt_print(output);
 
             } else {
                 menu_encrypt_error();
             }
-            break;   
+            break;
         }
         menu_home(1);
 

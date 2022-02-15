@@ -152,7 +152,7 @@ void input_field_encrypt (int state, int checked) {
 
     if (checked == 1) { //Manual input - enter the text directly in the terminal
         printf("║ Enter the text you want to encrypt:                                           ║\n");
-        scanf("%s", global_text);
+        scanf("%[^\n]", global_text);
 
 
     } else {
