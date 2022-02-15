@@ -80,7 +80,7 @@ void encrypt_print(char *output) {
         menu_tab(4);
         menu_line(1);
         printf("║ The encrypted message was written to the file encryptet_message.txt           ║\n");
-        menu_line(4);
+        menu_line(5);
         printf("║                              Press S to continue                              ║\n");
         menu_line(1);
         menu_footer();
@@ -97,7 +97,7 @@ void menu_encrypt_error() {
     menu_tab(4);
     menu_line(1);
     printf("║ Error: Unable to encrypt the content                                          ║\n");
-    menu_line(1);
+    menu_line(5);
     printf("║                              Press S to continue                              ║\n");
     menu_line(1);
     menu_footer();
@@ -151,12 +151,15 @@ void encrypt() {
             scanf("%s", encrypt_key);
             if (checkInput(encrypt_key, 3) == false) {   //Checks if the key consists only of numbers
                 menu_encrypt_output(1, global_output);
-                            }
-            int temp;
-            temp = atoi(encrypt_key); //Convert char to int
+            }
 
-            if (caesarEncrypt(global_text, temp) != NULL) {
-                encrypt_print(caesarEncrypt(global_text, temp));
+            int temp_key;
+            temp_key = atoi(encrypt_key); //Convert char to int
+
+            caesarEncrypt(global_text, temp_key);
+
+            if (global_text != NULL) {
+                encrypt_print(global_text);
 
             } else {
                 menu_encrypt_error();
@@ -164,8 +167,10 @@ void encrypt() {
             break;
         
         case 2: //Morse 
-            if (morseEncrypt(global_text) != NULL) {
-                encrypt_print(morseEncrypt(global_text));
+            morseEncrypt(global_text);
+            
+            if (global_text != NULL) {
+                encrypt_print(global_text);
 
             } else {
                 menu_encrypt_error();
@@ -173,8 +178,10 @@ void encrypt() {
             break;
 
         case 3: //Trithemius
-            if (trithemiusEncrypt(global_text) != NULL) {
-                encrypt_print(trithemiusEncrypt(global_text));
+            trithemiusEncrypt(global_text);
+
+            if (global_text != NULL) {
+                encrypt_print(global_text);
 
             } else {
                 menu_encrypt_error();
@@ -188,11 +195,15 @@ void encrypt() {
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
             scanf("%s", encrypt_key);
+
             if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_encrypt_output(1, global_output);
+            } 
+            
+            vigenereEncrypt(global_text, encrypt_key);
 
-            } else if (vigenereEncrypt(global_text, encrypt_key) != NULL) {
-                encrypt_print(vigenereEncrypt(global_text, encrypt_key));
+            if (global_text != NULL) {
+                encrypt_print(global_text);
 
             } else {
                 menu_encrypt_error();
@@ -210,13 +221,17 @@ void encrypt() {
             scanf("%s", encrypt_key);
 
             if (encrypt_key == "genkey") {  //Generates a key, if the user don't give a key
-                encrypt_print(otpEncryptTextOnly(global_text));
+                otpEncryptTextOnly(global_text);
+                encrypt_print(global_text);
 
             } else if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_encrypt_output(1, global_output);
+            }
 
-            } else if (otpEncrypt(global_text, encrypt_key) != NULL) {
-                encrypt_print(otpEncrypt(global_text, encrypt_key));
+            otpEncrypt(global_text, encrypt_key);
+
+            if (global_text != NULL) {
+                encrypt_print(global_text);
 
             } else {
                 menu_encrypt_error();

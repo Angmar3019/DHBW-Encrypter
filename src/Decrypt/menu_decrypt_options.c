@@ -84,7 +84,7 @@ void input_field_checksum() {
 
     menu_line(1);
     printf("║ Enter the file name of the checksum file. Must be in the same directory.      ║\n");
-    menu_line(1);
+    menu_line(5);
     menu_footer_open();
     printf("║ Enter the name of the file:                                                   ║\n");
 
@@ -106,7 +106,7 @@ void input_field_checksum() {
         menu_tab(4);
         menu_line(1);
         printf("║ Error: Unable to open the file.                                               ║\n");
-        menu_line(1);
+        menu_line(5);
         printf("║                              Press S to continue                              ║\n");
         menu_line(1);
         menu_footer();

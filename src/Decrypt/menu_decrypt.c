@@ -54,7 +54,7 @@ void decrypt_print(char *output) {
             menu_tab(4);
             menu_line(1);
             printf("║ The checksums of the contents match                                           ║\n");
-            menu_line(1);
+            menu_line(5);
             printf("║                              Press S to continue                              ║\n");
             menu_line(1);
             menu_footer();
@@ -69,7 +69,7 @@ void decrypt_print(char *output) {
             menu_tab(4);
             menu_line(1);
             printf("║ The checksums of the contents don't match. Cancelling the process!            ║\n");
-            menu_line(1);
+            menu_line(5);
             printf("║                              Press S to continue                              ║\n");
             menu_line(1);
             menu_footer();
@@ -128,7 +128,7 @@ void decrypt_print(char *output) {
         menu_tab(4);
         menu_line(1);
         printf("║ The encrypted message was written to the file decryptet_message.txt           ║\n");
-        menu_line(4);
+        menu_line(5);
         printf("║                              Press S to continue                              ║\n");
         menu_line(1);
         menu_footer();
@@ -145,7 +145,7 @@ void menu_decrypt_error() {
     menu_tab(4);
     menu_line(1);
     printf("║ Error: Unable to decrypt the content                                          ║\n");
-    menu_line(1);
+    menu_line(5);
     printf("║                              Press S to continue                              ║\n");
     menu_line(1);
     menu_footer();
@@ -181,25 +181,37 @@ void decrypt() {
             if (checkInput(decrypt_key, 3) == false) {   //Checks if the key consists only of numbers
                 menu_decrypt_output(1, global_output);
             }
-            int temp;
-            temp = atoi(decrypt_key); //Convert char to int
+            int temp_key;
+            temp_key = atoi(decrypt_key); //Convert char to int
 
-            decrypt_print(caesarDecrypt(global_text, temp));
+            caesarDecrypt(global_text, temp_key);
 
-            break;
-        
-        case 2: //Morse 
-            if (morseDecrypt(global_text) != NULL) {
-                decrypt_print(morseDecrypt(global_text));
+            if (global_text != NULL) {
+                decrypt_print(global_text);
 
             } else {
                 menu_decrypt_error();
             }
             break;
 
+            break;
+        
+        case 2: //Morse 
+            morseDecrypt(global_text);
+
+            if (global_text != NULL) {
+                decrypt_print(global_text);
+
+            } else {
+                menu_decrypt_error();
+            }
+            break;  
+
         case 3: //Trithemius  
-            if (trithemiusDecrypt(global_text) != NULL) {
-                decrypt_print(trithemiusDecrypt(global_text));
+            trithemiusDecrypt(global_text);
+
+            if (global_text != NULL) {
+                decrypt_print(global_text);
 
             } else {
                 menu_decrypt_error();
@@ -213,11 +225,15 @@ void decrypt() {
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
             scanf("%s", decrypt_key);
+
             if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_decrypt_output(1, global_output);
+            } 
+            
+            vigenereDecrypt(global_text, decrypt_key);
 
-            } else if (vigenereDecrypt(global_text, decrypt_key) != NULL) {
-                decrypt_print(vigenereDecrypt(global_text, decrypt_key));
+            if (global_text != NULL) {
+                decrypt_print(global_text);
 
             } else {
                 menu_decrypt_error();
@@ -234,9 +250,12 @@ void decrypt() {
 
             if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_decrypt_output(1, global_output);
+            }
 
-            } else if (otpDecrypt(global_text, decrypt_key) != NULL) {
-                decrypt_print(otpDecrypt(global_text, decrypt_key));
+            otpDecrypt(global_text, decrypt_key);
+
+            if (global_text != NULL) {
+                decrypt_print(global_text);
 
             } else {
                 menu_decrypt_error();
