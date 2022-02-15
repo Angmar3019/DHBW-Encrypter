@@ -165,12 +165,12 @@ void encrypt() {
                 menu_encrypt_error();
             }
             break;
-        
-        case 2: //Morse 
-            morseEncrypt(global_text);
-            
-            if (global_text != NULL) {
-                encrypt_print(global_text);
+
+        case 2:; //Morse
+            char *output = morseEncrypt(global_text);
+
+            if (output != NULL) {
+                encrypt_print(output);
 
             } else {
                 menu_encrypt_error();
@@ -198,8 +198,8 @@ void encrypt() {
 
             if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_encrypt_output(1, global_output);
-            } 
-            
+            }
+
             vigenereEncrypt(global_text, encrypt_key);
 
             if (global_text != NULL) {
