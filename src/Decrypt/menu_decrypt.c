@@ -179,7 +179,21 @@ void decrypt() {
             printf("║ Please enter a key                                                            ║\n");
             scanf("%s", decrypt_key);
             if (checkInput(decrypt_key, 3) == false) {   //Checks if the key consists only of numbers
-                menu_decrypt_output(1, global_output);
+                menu_clear();
+
+                menu_header();
+                menu_tab(4);
+                menu_line(1);
+                printf("║ Error: The entered key has the wrong format.                                  ║\n");
+                menu_line(5);
+                printf("║                              Press S to continue                              ║\n");
+                menu_line(1);
+                menu_footer();
+
+                int input;
+                input = navigation();
+                
+                menu_decrypt_output(1, global_output); //Calls the output menu again to enter a correct key
             }
             int temp_key;
             temp_key = atoi(decrypt_key); //Convert char to int
@@ -227,7 +241,21 @@ void decrypt() {
             scanf("%s", decrypt_key);
 
             if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
-                menu_decrypt_output(1, global_output);
+                menu_clear();
+
+                menu_header();
+                menu_tab(4);
+                menu_line(1);
+                printf("║ Error: The entered key has the wrong format.                                  ║\n");
+                menu_line(5);
+                printf("║                              Press S to continue                              ║\n");
+                menu_line(1);
+                menu_footer();
+
+                int input;
+                input = navigation();
+                
+                menu_decrypt_output(1, global_output); //Calls the output menu again to enter a correct key
             } 
             
             vigenereDecrypt(global_text, decrypt_key);
@@ -249,7 +277,21 @@ void decrypt() {
             scanf("%s", decrypt_key);
 
             if (checkASCII(decrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
-                menu_decrypt_output(1, global_output);
+                menu_clear();
+
+                menu_header();
+                menu_tab(4);
+                menu_line(1);
+                printf("║ Error: The entered key has the wrong format.                                  ║\n");
+                menu_line(5);
+                printf("║                              Press S to continue                              ║\n");
+                menu_line(1);
+                menu_footer();
+
+                int input;
+                input = navigation();
+                
+                menu_decrypt_output(1, global_output); //Calls the output menu again to enter a correct key
             }
 
             otpDecrypt(global_text, decrypt_key);
