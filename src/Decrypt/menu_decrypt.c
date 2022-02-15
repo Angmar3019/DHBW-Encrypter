@@ -177,7 +177,7 @@ void decrypt() {
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
             scanf("%s", decrypt_key);
-            if (checkNumbers(decrypt_key) == false) {   //Checks if the key consists only of numbers
+            if (checkInput(decrypt_key, 3) == false) {   //Checks if the key consists only of numbers
                 menu_decrypt_output(1, global_output);
             }
             int temp;

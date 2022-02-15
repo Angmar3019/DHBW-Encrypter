@@ -148,8 +148,7 @@ void encrypt() {
             menu_footer_open();
             printf("║ Please enter a key                                                            ║\n");
             scanf("%s", encrypt_key);
-
-            if (checkNumbers(encrypt_key) == false) {   //Checks if the key consists only of numbers
+            if (checkInput(encrypt_key, 3) == false) {   //Checks if the key consists only of numbers
                 menu_encrypt_output(1, global_output);
                             }
             int temp;
