@@ -91,6 +91,7 @@ void encrypt_print(char *output) {
 }
 
 void menu_encrypt_error() {
+    
     menu_clear();
 
     menu_header();
