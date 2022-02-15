@@ -15,11 +15,11 @@ void shiftOTPCharacters(char *text, char *keyText, int mode){
 		switch(mode){
 			//encrypt
 			case 0:
-				code += keyCode; //add key to shift letters forwards
+				code += (keyCode - 32); //add key to shift letters forwards
 				break;
 			//decrypt
 			case 1:
-				code -= keyCode; //subtract key to shift letters backwards
+				code -= (keyCode - 32); //subtract key to shift letters backwards
 				break;
 		}
 		code > 126? code += (-127) + 32 : code; //if the new value is above the defined range, loop back to beginning of the range (only when encrypting)
@@ -30,24 +30,14 @@ void shiftOTPCharacters(char *text, char *keyText, int mode){
 }
 
 char* createKey(int length){
+	srand(time(NULL)); //set seed of rand() to a random seed
 	char *keyText;
 	keyText = calloc(length, sizeof(char)); //allocate enough space to save the key string
 	for(int i = 0; i < length; i++){
-		keyText[i] = (int) ((double)(95 * rand() / RAND_MAX)); //create a random number between 0 and 95
+		int charNum = rand() % 128;
+		*(keyText+i) = charNum; //create a random number between 0 and 95
 	}
 	return keyText;
-}
-
-char* otpEncryptTextOnly(char *text){ //called from menu if key was not provided by user
-	if(checkInput(text, 0)){
-		srand(time(NULL)); //set seed of rand() to a random seed
-		char *key = createKey(strlen(text)); //create a key with the same length as the text
-		shiftOTPCharacters(text,key, 0); //pass input, key and mode = 0 (for encryption) to main function
-		return key; //return text and key to user
-	}
-	else{
-		return NULL;
-	}
 }
 
 char* otpEncrypt(char *text, char *keyText){ //called from menu if key was provided by user
