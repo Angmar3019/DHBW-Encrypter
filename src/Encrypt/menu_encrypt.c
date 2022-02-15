@@ -91,6 +91,7 @@ void encrypt_print(char *output) {
 }
 
 void menu_encrypt_error() {
+    
     menu_clear();
 
     menu_header();
@@ -151,7 +152,21 @@ void encrypt() {
             printf("║ Please enter a key                                                            ║\n");
             scanf("%s", encrypt_key);
             if (checkInput(encrypt_key, 3) == false) {   //Checks if the key consists only of numbers
-                menu_encrypt_output(1, global_output);
+                menu_clear();
+
+                menu_header();
+                menu_tab(4);
+                menu_line(1);
+                printf("║ Error: The entered key has the wrong format.                                  ║\n");
+                menu_line(5);
+                printf("║                              Press S to continue                              ║\n");
+                menu_line(1);
+                menu_footer();
+
+                int input;
+                input = navigation();
+                
+                menu_encrypt_output(1, global_output); //Calls the output menu again to enter a correct key
             }
 
             int temp_key;
@@ -198,7 +213,21 @@ void encrypt() {
             scanf("%[^\n]", encrypt_key); //scan until user presses enter (until newline char)
 
             if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
-                menu_encrypt_output(1, global_output);
+                menu_clear();
+
+                menu_header();
+                menu_tab(4);
+                menu_line(1);
+                printf("║ Error: The entered key has the wrong format.                                  ║\n");
+                menu_line(5);
+                printf("║                              Press S to continue                              ║\n");
+                menu_line(1);
+                menu_footer();
+
+                int input;
+                input = navigation();
+
+                menu_encrypt_output(1, global_output); //Calls the output menu again to enter a correct key
             }
 
             output = vigenereEncrypt(global_text, encrypt_key);
@@ -226,7 +255,21 @@ void encrypt() {
                 output = otpEncrypt(global_text, encrypt_key_ptr);
 
             } else if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
-                menu_encrypt_output(1, global_output);
+                menu_clear();
+
+                menu_header();
+                menu_tab(4);
+                menu_line(1);
+                printf("║ Error: The entered key has the wrong format.                                  ║\n");
+                menu_line(5);
+                printf("║                              Press S to continue                              ║\n");
+                menu_line(1);
+                menu_footer();
+
+                int input;
+                input = navigation();
+                
+                menu_encrypt_output(1, global_output); //Calls the output menu again to enter a correct key
             }
             else{
                 output = otpEncrypt(global_text, encrypt_key);
