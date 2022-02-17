@@ -250,7 +250,7 @@ void encrypt() {
             printf("║ Please enter a key                                                            ║\n");
             scanf("%[^\n]", encrypt_key); //scan until user presses enter (until newline char)
 
-            if (strcmp(encrypt_key, "genkey") == 0){  //Generates a key, if the user doesn't give a key
+            if (strcmp(encrypt_key, "") == 0){  //Generates a key, if the user doesn't give a key
                 char *encrypt_key_ptr = createKey(strlen(global_text));
                 output = otpEncrypt(global_text, encrypt_key_ptr);
 

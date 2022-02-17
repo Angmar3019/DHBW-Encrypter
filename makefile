@@ -1,5 +1,5 @@
 # Included paths
-VPATH = src/Algorithms src/Decrypt src/Encrypt src/Librarys src/Menu obj
+VPATH = src src/Algorithms src/Decrypt src/Encrypt src/Librarys src/Menu obj
 OUT_DIR = obj
 
 #GCC suffix
