@@ -252,7 +252,10 @@ void encrypt() {
 
             if (strcmp(encrypt_key, "") == 0){  //Generates a key, if the user doesn't give a key
                 char *encrypt_key_ptr = createKey(strlen(global_text));
-                output = otpEncrypt(global_text, encrypt_key_ptr);
+
+                strcpy(encrypt_key, encrypt_key_ptr);
+
+                output = otpEncrypt(global_text, encrypt_key);
 
             } else if (checkASCII(encrypt_key) == false) {  //Only accept the printable ASCII characters (codes 32 to 126)
                 menu_clear();
@@ -294,7 +297,13 @@ void encrypt() {
             }
 
             if (output != NULL) {
-                encrypt_print(output);
+                char temp[] = "The key is ";
+                
+                strcat(temp, encrypt_key);
+                strcat(temp, "\n\n");
+                strcat(temp, output);
+
+                encrypt_print(temp);
 
             } else {
                 menu_encrypt_error();
